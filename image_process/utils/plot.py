@@ -1,0 +1,34 @@
+import matplotlib.pyplot as plt
+
+
+def plot_image(image):
+    plt.figure(figsize=(12, 4))
+    plt.imshow(image, cmap='gray')
+    plt.axis('off')
+    plt.show()
+
+
+def plot_result(*args):
+    num_image = len(args)
+    fig, ax = plt.subplots(nrows=1, ncols=num_image, figsize=(12, 4))
+    name_lst = [f'image {i}' for i in range(1, num_image)]
+    name_lst.append('result')
+
+    for ax, name, image in zip(ax, name_lst, args):
+        ax.set_title(name)
+        ax.imshow(image, cmap='gray')
+        ax.axis('off')
+
+    fig.tight_layout()
+    plt.show()
+
+
+def plot_histogram(image):
+    fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(12, 4), sharex=True, sharey=True)
+    color_lst = ['red', 'blue', 'green']
+    for index, (ax, color) in enumerate(zip(ax, color_lst)):
+        ax.set_title(f'{color.title()} histogram')
+        ax.hist(image[:, :, index].ravel(), bins=256, color=color, align=0.8)
+
+    fig.tight_layout()
+    plt.show()
